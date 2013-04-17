@@ -1,10 +1,11 @@
 {% include 'includes/head.html' %}
 <body>
   <div class="container">
-
-{{ peter }}
+    <a href="https://app.asana.com/-/oauth_authorize?client_id={{client_id}}&response_type=code&redirect_uri={{redirect_uri}}">
+      <img src='/static/images/asana-oauth-button.png' />
+    </a>
   </div>
 
 
 </body>
-
+</html>
