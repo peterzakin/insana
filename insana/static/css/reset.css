@@ -1,0 +1,88 @@
+div, span, applet, object, iframe, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li, body,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video, input, textarea, html{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+/*  font: inherit;*/
+    vertical-align: baseline;
+    outline:none;
+}
+
+center{
+    text-align: center;
+}
+
+.block{
+    display:block;
+}
+
+.inline{
+    display:inline;
+}
+
+section{
+}
+
+.left{
+    float:left;
+}
+
+.right{
+    float:right;
+}
+
+.clearfix{
+    clear:both;
+}
+
+input {
+    padding:5px;
+    width:100%;
+}
+
+textarea{
+    padding:5px;
+    resize:none;
+    width:100%;
+    box-sizing:border-box;
+    font-size:12px;
+}
+
+.relative{
+    position:relative;
+}
+
+.absolute{
+    position:absolute;
+}
+
+.bold{
+    font-weight:500;
+}
+
+button{
+    border:none;
+    padding-left:20px;
+    padding-right:20px;
+    font-size:12pt;
+    #background:-webkit-linear-gradient(top,#B8DE6C,#85B221);
+    background: #44D27D;
+    color:white;
+    -webkit-border-radius:2px;
+    font-weight:500;
+}
+
+a{
+	text-decoration:none;
+}
