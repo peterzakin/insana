@@ -19,6 +19,10 @@ time, mark, audio, video, input, textarea, html{
     outline:none;
 }
 
+ul, li {
+    list-style-type:none;
+}
+
 center{
     text-align: center;
 }
@@ -85,4 +89,7 @@ button{
 
 a{
 	text-decoration:none;
+    color:inherit
 }
+
+

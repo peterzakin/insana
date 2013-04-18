@@ -11,7 +11,7 @@ import requests
 import simplejson
 from models import Profile
 
-from lib import asanaHelper
+from lib.asanaHelper import AsanaClient
 
 
 def home(request):
@@ -20,13 +20,27 @@ def home(request):
     else:
         return _logged_out_home(request)
 
-def logout(request):
+def logout_view(request):
     logout(request)
     return redirect('/')
 
 def _logged_in_home(request):
     c = RequestContext(request)
-    profile = request.user.profile
+    profile = request.user.profile    
+    client = AsanaClient(profile)
+
+    workspaces = client.get_workspaces()
+    if len(workspaces) > 0:
+        workspace = workspaces[0].get('id')
+    else:
+        return redirect('/logout')
+
+    if not request.session.get('user_projects'):
+        request.session['user_projects'] = client.get_projects_for_user(workspace)
+
+    c['user_projects'] = request.session['user_projects']
+    c['default_user_project'] = c['user_projects'][0].get('name')
+    del c['user_projects'][0]
     return render_to_response('logged_in_home.html', c)
 
 def _logged_out_home(request):
@@ -52,7 +66,7 @@ def asana_callback(request):
     asana_data = asana_info.get('data')
 
     if not asana_data:
-        import pdb; pdb.set_trace()
+        raise Exception('something went wrong')
 
     asana_access_token = asana_info.get('access_token')
     asana_refresh_token= asana_info.get('refresh_token')
@@ -68,8 +82,13 @@ def asana_callback(request):
     else:
         # i hate django usernames. so fuck that.
         profile = Profile.create_new_user(asana_id, name, asana_id, asana_access_token, asana_refresh_token, email)
-    
+        #set up workspaces
+        
     profile.backend = 'django.contrib.auth.backends.ModelBackend'    
     login(request, profile)
 
+ #   client = AsanaClient(profile)
+#    workspaces = client.get_workspaces()
+    
     return redirect('/')
+

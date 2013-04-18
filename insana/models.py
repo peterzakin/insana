@@ -6,7 +6,6 @@ class Profile(User):
     access_token = models.CharField(max_length=200)
     asana_id = models.CharField(max_length=100)
     asana_email = models.CharField(max_length=200)
-    
     objects = UserManager()
 
     class Meta:

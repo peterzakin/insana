@@ -8,6 +8,7 @@ from views import *
 urlpatterns = patterns('',
                        url(r'^$', home),
                        url(r'^asana_callback/?$', asana_callback),
+                       url(r'^logout/?$', logout_view),
     # Examples:
     # url(r'^$', 'insana.views.home', name='home'),
     # url(r'^insana/', include('insana.foo.urls')),

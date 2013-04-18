@@ -1,5 +1,60 @@
+body{
+    position:relative;
+    font-family:'AvenirLTStd-Light';
+}
 .container{
     width:900px;
-    margin:0 auto;
+    margin:0 auto;    
+}
+
+header{
+    background: #f9942e;
+    box-sizing:border-box;
+    height:105px;
+    text-align:center;
+    font-weight:600;
+    color:white;
+    line-height:105px;
+}
+
+#current_project{
+
+    font-size:40px;
+    font-family:'AvenirLTStd-Medium';
+}
+
+#projects_menu{
+}
+
+#project_triangle {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 20px solid white;
+    position:absolute;
+    right:-25px;
+    top:38px;
     
+}
+
+#current_project_container{
+    display:inline-block;
+    position:relative;
+}
+
+ul#projects_menu{
+    width:350px;
+    margin:0 auto;
+    color:white;
+    line-height:normal;
+}
+
+ul#projects_menu li{
+    height:85px;
+    line-height:85px;
+}
+
+.invisible{
+    display:none;
 }
