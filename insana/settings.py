@@ -30,7 +30,7 @@ else:
 
     DATABASES['default'] = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '',
+        'NAME': 'insana_db',
         'USER': '',
         'PASSWORD': '',
         'HOST': 'localhost',
@@ -144,6 +144,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'insana.models',
+    'insana'
 )
 
 # A sample logging configuration. The only tangible logging
