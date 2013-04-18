@@ -11,22 +11,30 @@ import requests
 import simplejson
 from models import Profile
 
+from lib import asanaHelper
+
+
 def home(request):
-    c = RequestContext(request)
-    c['peter'] = 'HELLO PETER'
-    c['redirect_uri'] = constants.redirect_uri
-    c['client_id'] = constants.ASANA_CLIENT_ID
-    return render_to_response('landing.html', c)
+    if request.user.is_authenticated():
+        return _logged_in_home(request)
+    else:
+        return _logged_out_home(request)
 
 def logout(request):
     logout(request)
     return redirect('/')
 
 def _logged_in_home(request):
-    pass
+    c = RequestContext(request)
+    profile = request.user.profile
+    return render_to_response('logged_in_home.html', c)
 
 def _logged_out_home(request):
-    pass
+    c = RequestContext(request)
+
+    c['redirect_uri'] = constants.redirect_uri
+    c['client_id'] = constants.ASANA_CLIENT_ID
+    return render_to_response('landing.html', c)
 
 def asana_callback(request):
     code = request.GET.get('code')
@@ -54,11 +62,14 @@ def asana_callback(request):
     name = asana_data.get('name')
     
     #create user if doesn't exist
-    profile = Profile.objects.get(asana_id=asana_id)
-    if not profile:
+    profiles = Profile.objects.filter(asana_id=asana_id)
+    if len(profiles) > 0:
+        profile = profiles[0]
+    else:
         # i hate django usernames. so fuck that.
         profile = Profile.create_new_user(asana_id, name, asana_id, asana_access_token, asana_refresh_token, email)
     
-    user.backend = 'django.contrib.auth.backends.ModelBackend'    
+    profile.backend = 'django.contrib.auth.backends.ModelBackend'    
     login(request, profile)
 
+    return redirect('/')

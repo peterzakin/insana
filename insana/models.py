@@ -21,6 +21,6 @@ class Profile(User):
         else:
             raise Exception('oo shit something wrong')
 
-        profile = klass(username=username, first_name=first_name, last_name=last_name, asana_id=asana_id, asana_access_token=access_token, asana_refresh_token=refresh_token, asana_email=email)
+        profile = klass(username=username, first_name=first_name, last_name=last_name, asana_id=asana_id, access_token=access_token, refresh_token=refresh_token, asana_email=email)
         profile.save()
         return profile
