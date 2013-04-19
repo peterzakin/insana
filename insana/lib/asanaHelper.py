@@ -72,8 +72,10 @@ class AsanaClient():
         project['color'] = constants.PROJECT_COLORS[count]
         return project
 
-    def get_tasks_for_project(self):
-        pass
+    def get_tasks_for_project(self, project_id):
+        response = self.get('/projects/%s/tasks' % (project_id))
+        tasks = simplejson.loads(response.text).get('data')
+        return tasks
     
     def get_users_on_project(self):
         pass

@@ -1,12 +1,12 @@
 <header class="relative"> 
 <div id="current_project_container">
-  <span id="current_project" class="relative">  {{ default_user_project }}</span>
+  <span id="current_project" class="relative">  {{ default_user_project.name }}</span>
   <span id="project_triangle"> </span> 
 </div>
 <div class="absolute" style="width:100%;top:104px;">
 <ul id="projects_menu">
   {% for project in user_projects %}
-    <li style="background: {{project.color}}">  <a href="/project/{{project.id}}">{{project.name}}</a></li>
+<a href="/project/{{project.id}}">    <li style="background: {{project.color}}">  {{project.name}}</li></a>
   {% endfor %}
 </ul>
  </div>

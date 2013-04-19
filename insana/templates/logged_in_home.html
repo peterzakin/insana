@@ -4,10 +4,21 @@
 
   <div class="container">
     
+    <div id="people">
+      {% for follower in followers %}
+      <div class="person">{{follower.name}}</div>
+      {% endfor %}
+    </div>
 
-
-    YO you logged in 
-
+    <div id="tasks">
+      <h3>TASKS</h3>
+      
+      {% for task in tasks %} 
+      <div class="task">
+        {{ task.name }}
+      </div>
+      {% endfor %}
+    </div>
   </div>
 
 </body>

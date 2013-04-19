@@ -28,20 +28,66 @@ def _logged_in_home(request):
     c = RequestContext(request)
     profile = request.user.profile    
     client = AsanaClient(profile)
-
-    workspaces = client.get_workspaces()
-    if len(workspaces) > 0:
-        workspace = workspaces[0].get('id')
-    else:
-        return redirect('/logout')
-
+    c = RequestContext(request)
+    if not request.session.get('workspace'):
+        workspaces = client.get_workspaces()
+        if len(workspaces) > 0:
+            workspace = workspaces[0].get('id')
+            request.session['workspace'] = workspace
+        else:
+            return redirect('/logout')
+        
     if not request.session.get('user_projects'):
         request.session['user_projects'] = client.get_projects_for_user(workspace)
 
     c['user_projects'] = request.session['user_projects']
-    c['default_user_project'] = c['user_projects'][0].get('name')
-    del c['user_projects'][0]
+    
+    c['default_user_project'] = c['user_projects'][0]
+        
+    if c.get('default_user_project') is None:
+        return redirect('/logout')
+
+    c['followers'] = c['default_user_project'].get('followers')
+
+    #get tasks for the default user project
+    c['tasks'] = client.get_tasks_for_project(c['user_projects'][0].get('id'))
+        
     return render_to_response('logged_in_home.html', c)
+
+
+
+def project_view(request, project_id=None):
+    c = RequestContext(request)
+    profile = request.user.profile    
+    client = AsanaClient(profile)
+    if not request.session.get('workspace'):
+        workspaces = client.get_workspaces()
+        if len(workspaces) > 0:
+            workspace = workspaces[0].get('id')
+            request.session['workspace'] = workspace
+        else:
+            return redirect('/logout')
+        
+    if not request.session.get('user_projects'):
+        request.session['user_projects'] = client.get_projects_for_user(workspace)
+
+    c['user_projects'] = request.session['user_projects']
+    
+    for project in c['user_projects']:
+        if project.get('id') == int(project_id):
+            c['default_user_project'] = project
+            break
+        
+    if c.get('default_user_project') is None:
+        return redirect('/logout')
+
+    c['followers'] = c['default_user_project'].get('followers')
+
+    #get tasks for the default user project
+    c['tasks'] = client.get_tasks_for_project(c['user_projects'][0].get('id'))
+        
+    return render_to_response('logged_in_home.html', c)
+
 
 def _logged_out_home(request):
     c = RequestContext(request)

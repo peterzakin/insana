@@ -1,5 +1,12 @@
 $(document).ready(function(){
     var menu_visible = false;
+    
+    $('#projects_menu li').hover(function(){
+        $(this).css('color', '#ccc');
+    }, function(){
+        $(this).css('color', 'white');
+
+    });
 
     close_menu = function(){
         $('#projects_menu').css('display', 'none');
@@ -33,4 +40,5 @@ $(document).ready(function(){
 
     });
 });
+
 

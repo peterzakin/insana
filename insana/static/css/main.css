@@ -24,6 +24,32 @@ header{
 }
 
 #projects_menu{
+    display:none;
+}
+
+#tasks{
+
+}
+
+#tasks h3{
+    color: #333;
+    font-size:22px;
+    border-bottom:solid thin #ccc;
+    margin-bottom:0;
+}
+
+#people{
+    margin-top:30px;
+    margin-bottom:40px;
+}
+
+
+.task{
+    font-size:14px;
+    padding-top:20px;
+    padding-bottom:20px;
+    border-bottom:solid thin #ccc;
+    padding-left:70px;
 }
 
 #project_triangle {

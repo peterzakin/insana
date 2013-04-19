@@ -9,6 +9,7 @@ urlpatterns = patterns('',
                        url(r'^$', home),
                        url(r'^asana_callback/?$', asana_callback),
                        url(r'^logout/?$', logout_view),
+                       url(r'^project/(?P<project_id>\d+)', project_view),
     # Examples:
     # url(r'^$', 'insana.views.home', name='home'),
     # url(r'^insana/', include('insana.foo.urls')),
