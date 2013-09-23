@@ -20,7 +20,7 @@ class AsanaClient():
         response = requests.get(url, headers=headers)
         if response.status_code == 401:
             #refresh token
-            self.get_refresh_token()
+            self.refresh_access_token()
             response = requests.get(url, headers=headers)
         return response
     
@@ -29,7 +29,7 @@ class AsanaClient():
         data = kwargs
         response = requests.post(url, data=data)
         if response.status_code == 401:
-            self.get_refresh_token()
+            self.refresh_access_token()
             response = requests.post(url, data=data)
         return response
 
@@ -87,7 +87,7 @@ class AsanaClient():
             workspaces = user_info.get('workspaces')
         return workspaces
 
-    def get_refresh_token(self):
+    def refresh_access_token(self):
         url = "https://app.asana.com/-/oauth_token"
         data = {
             'grant_type':'refresh_token',
